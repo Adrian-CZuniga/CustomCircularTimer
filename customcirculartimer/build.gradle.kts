@@ -1,8 +1,22 @@
 plugins {
     id("com.android.library")
+    id("maven-publish")
+
     alias(libs.plugins.kotlin.android)
 }
 
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                groupId = "com.github.Adrian-CZuniga"
+                artifactId = "circular_timer"
+                version = "1.0"
+                from(components["release"])
+            }
+        }
+    }
+}
 android {
     namespace = "com.example.customcirculartimer"
     compileSdk = 35
