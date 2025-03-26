@@ -74,6 +74,7 @@ class CircularTimerView @JvmOverloads constructor(
         minValue = min
         maxValue = max
         currentValue = currentValue.coerceIn(min, max)
+        setIncrement()
         invalidate()
     }
 
@@ -82,7 +83,7 @@ class CircularTimerView @JvmOverloads constructor(
         invalidate()
     }
 
-    fun setIncrement(newIncrement : Long = (maxValue - minValue) / ((maxValue - minValue) / 10)) {
+    fun setIncrement(newIncrement : Long = duration / 10) {
         increment = newIncrement
     }
 
