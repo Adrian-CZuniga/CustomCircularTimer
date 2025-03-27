@@ -19,8 +19,10 @@ class MainActivity : AppCompatActivity() {
         val btnIncrease = findViewById<Button>(R.id.btnIncrease)
         val btnDecrease = findViewById<Button>(R.id.btnDecrease)
         customProgress.setRange(0L, TimeUnit.SECONDS.toMillis(120))
+        customProgress.setIncrement()
         val markers : List<Long> = listOf(customProgress.duration / 2)
         customProgress.setMarkers(markers)
+
 
         customProgress.setCurrentValue(1000L)
         customProgress.setFormatText(TimeFormat.HH_MM)
