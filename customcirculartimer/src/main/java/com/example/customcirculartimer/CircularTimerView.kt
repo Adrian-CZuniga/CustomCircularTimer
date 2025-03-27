@@ -34,6 +34,8 @@ class CircularTimerView @JvmOverloads constructor(
         textAlign = Paint.Align.CENTER
     }
 
+
+
     private var minValue: Long = 0L
     private var maxValue: Long = 10000L
 
@@ -53,7 +55,10 @@ class CircularTimerView @JvmOverloads constructor(
         paintMarker.color = ContextCompat.getColor(context, android.R.color.holo_red_light)
         setIncrement()
         setCurrentValue(minValue)
+
     }
+
+
 
     fun setCurrentValue(value: Long){
         currentValue = value.coerceIn(minValue, maxValue)
@@ -74,7 +79,6 @@ class CircularTimerView @JvmOverloads constructor(
         minValue = min
         maxValue = max
         currentValue = currentValue.coerceIn(min, max)
-        setIncrement()
         invalidate()
     }
 
