@@ -55,14 +55,23 @@ class CircularTimerView @JvmOverloads constructor(
         paintMarker.color = ContextCompat.getColor(context, android.R.color.holo_red_light)
         setIncrement()
         setCurrentValue(minValue)
-
     }
-
+    var onValueReachedMarkerListener: OnValueReachedMarkerListener? = null
 
 
     fun setCurrentValue(value: Long){
         currentValue = value.coerceIn(minValue, maxValue)
+        checkIfMarkerReached(currentValue)
         invalidate()
+    }
+
+    private fun checkIfMarkerReached(currentValue: Long) {
+        for (marker in markers) {
+            if (currentValue == marker) {
+                onValueReachedMarkerListener?.onMarkerReached(marker)
+                break
+            }
+        }
     }
 
     fun increase(){
@@ -91,6 +100,27 @@ class CircularTimerView @JvmOverloads constructor(
         increment = newIncrement
     }
 
+    fun setProgressColor(color: Int) {
+        paintProgress.color = color
+        invalidate()
+    }
+
+    fun setBackgroundTimerColor(color: Int) {
+        paintBackground.color = color
+        invalidate()
+    }
+
+    fun setMarkerColor(color: Int) {
+        paintMarker.color = color
+        invalidate()
+    }
+
+    fun setStrokeWidthTimer(width: Float) {
+        paintBackground.strokeWidth = width
+        paintProgress.strokeWidth = width
+        paintMarker.strokeWidth = width / 4
+        invalidate()
+    }
     fun setMarkers(markers: List<Long>) {
         this.markers = markers
         invalidate()
@@ -121,5 +151,9 @@ class CircularTimerView @JvmOverloads constructor(
         val centerX = width / 2f
         val centerY = height / 2f - ((paintText.descent() + paintText.ascent()) / 2)
         canvas.drawText(currentValue.toTimeString(formatText), centerX, centerY, paintText)
+    }
+
+    interface OnValueReachedMarkerListener {
+        fun onMarkerReached(marker: Long)
     }
 }

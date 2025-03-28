@@ -1,7 +1,9 @@
 package com.example.customcirculartimerexample
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.customcirculartimer.CircularTimerView
@@ -21,9 +23,19 @@ class MainActivity : AppCompatActivity() {
         customProgress.setRange(0L, TimeUnit.SECONDS.toMillis(120))
         val markers : List<Long> = listOf(customProgress.duration / 2)
         customProgress.setMarkers(markers)
-
-        customProgress.setCurrentValue(1000L)
+        customProgress.setStrokeWidthTimer(50f)
+        customProgress.setIncrement()
         customProgress.setFormatText(TimeFormat.HH_MM)
+
+        customProgress.setProgressColor(Color.argb(255, 255, 0, 0))
+        customProgress.setMarkerColor(Color.argb(255, 0, 255, 0))
+        customProgress.setBackgroundTimerColor(Color.argb(255, 0, 0, 255))
+
+        customProgress.onValueReachedMarkerListener = object : CircularTimerView.OnValueReachedMarkerListener {
+            override fun onMarkerReached(marker: Long) {
+                Toast.makeText(this@MainActivity, "Marker reached: $marker", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         btnIncrease.setOnClickListener {
             customProgress.increase()
