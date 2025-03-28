@@ -55,8 +55,11 @@ class CircularTimerView @JvmOverloads constructor(
         paintMarker.color = ContextCompat.getColor(context, android.R.color.holo_red_light)
         setIncrement()
         setCurrentValue(minValue)
+
     }
     var onValueReachedMarkerListener: OnValueReachedMarkerListener? = null
+
+
 
 
     fun setCurrentValue(value: Long){
