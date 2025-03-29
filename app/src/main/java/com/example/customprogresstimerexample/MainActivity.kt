@@ -1,4 +1,4 @@
-package com.example.customcirculartimerexample
+package com.example.customprogresstimerexample
 
 import android.graphics.Color
 import android.os.Bundle
@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.customcirculartimer.CircularTimerView
 import com.example.customcirculartimer.TimeFormat
+import com.example.customcirculartimerexample.R
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         val btnDecrease = findViewById<Button>(R.id.btnDecrease)
         customProgress.setRange(0L, TimeUnit.SECONDS.toMillis(120))
         val markers : List<Long> = listOf(customProgress.duration / 2)
-        customProgress.setMarkers(markers)
         customProgress.setStrokeWidthTimer(50f)
         customProgress.setIncrement()
         customProgress.setFormatText(TimeFormat.HH_MM)
@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
         customProgress.setProgressColor(Color.argb(255, 255, 0, 0))
         customProgress.setMarkerColor(Color.argb(255, 0, 255, 0))
         customProgress.setBackgroundTimerColor(Color.argb(255, 0, 0, 255))
-
+        customProgress.setMarkerSecondaryColor(Color.argb(255, 255, 255, 0))
+        customProgress.setMarkersByDivider(10)
         customProgress.onValueReachedMarkerListener = object : CircularTimerView.OnValueReachedMarkerListener {
             override fun onMarkerReached(marker: Long) {
                 Toast.makeText(this@MainActivity, "Marker reached: $marker", Toast.LENGTH_SHORT).show()

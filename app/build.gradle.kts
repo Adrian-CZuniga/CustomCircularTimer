@@ -8,7 +8,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.customcirculartimerexample"
+        applicationId = "com.example.customprogresstimerexample"
         minSdk = 25
         targetSdk = 35
         versionCode = 1

@@ -24,4 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "CustomCircularTimerExample"
 include(":app")
-include(":customcirculartimer")
+include(":customprogresstimer")

@@ -1,4 +1,4 @@
-package com.example.customcirculartimerexample
+package com.example.customprogresstimerexample
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

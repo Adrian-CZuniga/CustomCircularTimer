@@ -26,15 +26,18 @@ class CircularTimerView @JvmOverloads constructor(
     }
     private val paintMarker = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        strokeWidth = 5f
+        strokeWidth = 20f
+    }
+
+    private val painMarkerSecondary = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.STROKE
+        strokeWidth = 20f
     }
     private val paintText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textSize = 50f
         color = ContextCompat.getColor(context, android.R.color.black)
         textAlign = Paint.Align.CENTER
     }
-
-
 
     private var minValue: Long = 0L
     private var maxValue: Long = 10000L
@@ -53,14 +56,12 @@ class CircularTimerView @JvmOverloads constructor(
         paintBackground.color = ContextCompat.getColor(context, android.R.color.darker_gray)
         paintProgress.color = ContextCompat.getColor(context, android.R.color.holo_blue_light)
         paintMarker.color = ContextCompat.getColor(context, android.R.color.holo_red_light)
+        paintMarker.color = ContextCompat.getColor(context, android.R.color.holo_green_light)
         setIncrement()
         setCurrentValue(minValue)
 
     }
     var onValueReachedMarkerListener: OnValueReachedMarkerListener? = null
-
-
-
 
     fun setCurrentValue(value: Long){
         currentValue = value.coerceIn(minValue, maxValue)
@@ -118,10 +119,25 @@ class CircularTimerView @JvmOverloads constructor(
         invalidate()
     }
 
+    fun setMarkerSecondaryColor(color: Int) {
+        painMarkerSecondary.color = color
+        invalidate()
+    }
+
+    fun setMarkersByDivider(divider: Int) {
+        val newMarkers = mutableListOf<Long>()
+        for (i in 1 until divider) {
+            newMarkers.add(minValue + (duration / divider) * i)
+        }
+        markers = newMarkers
+        invalidate()
+    }
+
     fun setStrokeWidthTimer(width: Float) {
         paintBackground.strokeWidth = width
         paintProgress.strokeWidth = width
-        paintMarker.strokeWidth = width / 4
+        paintMarker.strokeWidth = width
+        painMarkerSecondary.strokeWidth = width
         invalidate()
     }
     fun setMarkers(markers: List<Long>) {
@@ -145,7 +161,11 @@ class CircularTimerView @JvmOverloads constructor(
         for (marker in markers) {
             if(marker in minValue..maxValue) {
                 val markerAngle = ((marker - minValue).toFloat() / (maxValue - minValue)) * 360f
-                canvas.drawArc(arcBounds, -90f + markerAngle, 2f, false, paintMarker)
+                if(marker <= currentValue){
+                    canvas.drawArc(arcBounds, -90f + markerAngle, 4f, false, painMarkerSecondary)
+                } else {
+                    canvas.drawArc(arcBounds, -90f + markerAngle, 4f, false, paintMarker)
+                }
             } else{
                 Log.w(tag, "The marker with the value $marker is out of limits of the range.")
             }

@@ -1,4 +1,4 @@
-package com.example.customcirculartimerexample
+package com.example.customprogresstimerexample
 
 import org.junit.Test
 
