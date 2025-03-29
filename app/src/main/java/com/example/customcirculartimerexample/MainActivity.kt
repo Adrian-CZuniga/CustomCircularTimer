@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         val btnDecrease = findViewById<Button>(R.id.btnDecrease)
         customProgress.setRange(0L, TimeUnit.SECONDS.toMillis(120))
         val markers : List<Long> = listOf(customProgress.duration / 2)
-        customProgress.setMarkers(markers)
         customProgress.setStrokeWidthTimer(50f)
         customProgress.setIncrement()
         customProgress.setFormatText(TimeFormat.HH_MM)
@@ -30,7 +29,8 @@ class MainActivity : AppCompatActivity() {
         customProgress.setProgressColor(Color.argb(255, 255, 0, 0))
         customProgress.setMarkerColor(Color.argb(255, 0, 255, 0))
         customProgress.setBackgroundTimerColor(Color.argb(255, 0, 0, 255))
-
+        customProgress.setMarkerSecondaryColor(Color.argb(255, 255, 255, 0))
+        customProgress.setMarkersByDivider(10)
         customProgress.onValueReachedMarkerListener = object : CircularTimerView.OnValueReachedMarkerListener {
             override fun onMarkerReached(marker: Long) {
                 Toast.makeText(this@MainActivity, "Marker reached: $marker", Toast.LENGTH_SHORT).show()
