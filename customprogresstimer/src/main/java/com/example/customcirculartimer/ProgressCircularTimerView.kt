@@ -19,6 +19,7 @@ class ProgressCircularTimerView @JvmOverloads constructor(
     override var minValue: Long = 0L
     override var maxValue: Long = 10000L
 
+
     private val arcBounds = RectF()
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -27,12 +28,14 @@ class ProgressCircularTimerView @JvmOverloads constructor(
         arcBounds.set(padding, padding, w - padding, h - padding)
     }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-
+    override fun drawShape(canvas: Canvas) {
         canvas.drawArc(arcBounds, 0f, 360f, false, paintBackground)
         val sweepAngle = ((currentValue - minValue).toFloat() / (maxValue - minValue)) * 360f
         canvas.drawArc(arcBounds, -90f, sweepAngle, false, paintProgress)
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
 
         for (marker in markers) {
             if(marker in minValue..maxValue) {
@@ -43,7 +46,7 @@ class ProgressCircularTimerView @JvmOverloads constructor(
                     canvas.drawArc(arcBounds, -90f + markerAngle, 4f, false, paintMarker)
                 }
             } else{
-                Log.w(tag, "The marker with the value $marker is out of limits of the range.")
+                markers = markers.filter { it in minValue..maxValue }
             }
         }
 

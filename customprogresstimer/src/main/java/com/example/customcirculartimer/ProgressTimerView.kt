@@ -1,6 +1,7 @@
 package com.example.customcirculartimer
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
@@ -61,10 +62,18 @@ abstract class ProgressTimerView@JvmOverloads constructor(
         paintBackground.color = ContextCompat.getColor(context, android.R.color.darker_gray)
         paintProgress.color = ContextCompat.getColor(context, android.R.color.holo_blue_light)
         paintMarker.color = ContextCompat.getColor(context, android.R.color.holo_red_light)
-        paintMarker.color = ContextCompat.getColor(context, android.R.color.holo_green_light)
+        painMarkerSecondary.color = ContextCompat.getColor(context, android.R.color.holo_green_light)
 
     }
     var onValueReachedMarkerListener: OnValueReachedMarkerListener? = null
+
+
+    abstract fun drawShape(canvas: Canvas)
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        drawShape(canvas)
+    }
 
     private fun checkIfMarkerReached(currentValue: Long) {
         for (marker in markers) {
@@ -75,12 +84,20 @@ abstract class ProgressTimerView@JvmOverloads constructor(
         }
     }
 
-    fun increase(){
-        currentValue += increment
+    fun increase() {
+        val newValue = (currentValue + increment).coerceIn(minValue, maxValue)
+        if (newValue != currentValue) {
+            currentValue = newValue
+            invalidate()
+        }
     }
 
-    fun decrease(){
-        currentValue -= increment
+    fun decrease() {
+        val newValue = (currentValue - increment).coerceIn(minValue, maxValue)
+        if (newValue != currentValue) {
+            currentValue = newValue
+            invalidate()
+        }
     }
 
     fun setRange(min: Long, max: Long) {
