@@ -1,4 +1,4 @@
-package com.example.customcirculartimer
+package com.example.customprogresstimer
 
 import android.content.Context
 import android.graphics.Canvas

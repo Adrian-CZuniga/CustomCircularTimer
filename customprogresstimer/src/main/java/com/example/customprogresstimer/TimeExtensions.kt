@@ -1,4 +1,4 @@
-package com.example.customcirculartimer
+package com.example.customprogresstimer
 
 import android.util.Log
 import java.util.Locale

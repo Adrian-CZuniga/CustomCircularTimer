@@ -6,10 +6,9 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.customcirculartimer.ProgressTimerView
+import com.example.customprogresstimer.ProgressTimerView
 import com.example.customcirculartimerexample.R
+import com.example.customprogresstimer.ProgressRoundedRectTimerView
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -18,10 +17,11 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         val customProgress = findViewById<ProgressTimerView>(R.id.customProgress)
+        val customProgressRoundedRect = findViewById<ProgressRoundedRectTimerView>(R.id.customProgressRoundedRect)
+
         val btnIncrease = findViewById<Button>(R.id.btnIncrease)
         val btnDecrease = findViewById<Button>(R.id.btnDecrease)
         customProgress.setRange(0L, TimeUnit.SECONDS.toMillis(120))
-        val markers : List<Long> = listOf(customProgress.duration / 2)
         customProgress.setStrokeWidthTimer(50f)
 
         customProgress.setProgressColor(Color.argb(255, 255, 0, 0))
@@ -35,12 +35,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        customProgressRoundedRect.setRange(0L, TimeUnit.SECONDS.toMillis(120))
+        customProgressRoundedRect.setStrokeWidthTimer(30f)
+        customProgressRoundedRect.attachMarkersByDivider(2)
+        customProgressRoundedRect.setCornerRadius(20f)
+
         btnIncrease.setOnClickListener {
             customProgress.increase()
+            customProgressRoundedRect.increase()
         }
 
         btnDecrease.setOnClickListener {
             customProgress.decrease()
+            customProgressRoundedRect.decrease()
         }
     }
 }

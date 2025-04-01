@@ -1,4 +1,4 @@
-package com.example.customcirculartimer
+package com.example.customprogresstimer
 
 import android.content.Context
 import android.graphics.Canvas
@@ -50,7 +50,7 @@ abstract class ProgressTimerView@JvmOverloads constructor(
             invalidate()
         }
 
-    protected var currentValue: Long = 0L
+    var currentValue: Long = 0L
         set(value) {
             field = value.coerceIn(minValue, maxValue)
             checkIfMarkerReached(currentValue)

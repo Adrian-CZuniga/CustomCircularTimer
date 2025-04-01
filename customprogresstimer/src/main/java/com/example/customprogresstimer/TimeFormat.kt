@@ -1,4 +1,4 @@
-package com.example.customcirculartimer
+package com.example.customprogresstimer
 
 enum class TimeFormat {
         HH_MM,
