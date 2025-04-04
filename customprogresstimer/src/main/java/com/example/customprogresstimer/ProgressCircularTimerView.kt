@@ -2,12 +2,8 @@ package com.example.customprogresstimer
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
-import android.util.Log
-import android.view.View
-import androidx.core.content.ContextCompat
 
 class ProgressCircularTimerView @JvmOverloads constructor(
     context: Context,
@@ -34,24 +30,19 @@ class ProgressCircularTimerView @JvmOverloads constructor(
         canvas.drawArc(arcBounds, -90f, sweepAngle, false, paintProgress)
     }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-
+    override fun drawMarkerInShape(canvas: Canvas) {
         for (marker in markers) {
-            if(marker in minValue..maxValue) {
+            if (marker in minValue..maxValue) {
                 val markerAngle = ((marker - minValue).toFloat() / (maxValue - minValue)) * 360f
-                if(marker <= currentValue){
+                if (marker <= currentValue) {
                     canvas.drawArc(arcBounds, -90f + markerAngle, 4f, false, painMarkerSecondary)
                 } else {
                     canvas.drawArc(arcBounds, -90f + markerAngle, 4f, false, paintMarker)
                 }
-            } else{
+            } else {
                 markers = markers.filter { it in minValue..maxValue }
             }
         }
-
-        val centerX = width / 2f
-        val centerY = height / 2f - ((paintText.descent() + paintText.ascent()) / 2)
-        canvas.drawText(currentValue.toTimeString(formatText), centerX, centerY, paintText)
     }
+
 }

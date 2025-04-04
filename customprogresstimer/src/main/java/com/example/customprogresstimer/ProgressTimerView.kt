@@ -14,6 +14,7 @@ abstract class ProgressTimerView@JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
     private val tag = ProgressCircularTimerView::class.java.simpleName
 
+
     protected val paintBackground = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = 20f
@@ -36,6 +37,7 @@ abstract class ProgressTimerView@JvmOverloads constructor(
         color = ContextCompat.getColor(context, android.R.color.black)
         textAlign = Paint.Align.CENTER
     }
+    protected var markerVisibility = true
 
     abstract var minValue: Long
     abstract var maxValue: Long
@@ -68,11 +70,28 @@ abstract class ProgressTimerView@JvmOverloads constructor(
     var onValueReachedMarkerListener: OnValueReachedMarkerListener? = null
 
 
-    abstract fun drawShape(canvas: Canvas)
+    protected abstract fun drawShape(canvas: Canvas)
 
+    protected abstract fun drawMarkerInShape(canvas: Canvas)
+
+    protected open fun drawTimerText(canvas: Canvas) {
+        val centerX = width / 2f
+        val centerY = height / 2f - ((paintText.descent() + paintText.ascent()) / 2)
+        canvas.drawText(currentValue.toTimeString(formatText), centerX, centerY, paintText)
+    }
+
+    fun setMarkersVisibility(visible: Boolean) {
+        markerVisibility = visible
+        invalidate()
+    }
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         drawShape(canvas)
+        if (markerVisibility) {
+            drawMarkerInShape(canvas)
+        }
+
+        drawTimerText(canvas)
     }
 
     private fun checkIfMarkerReached(currentValue: Long) {

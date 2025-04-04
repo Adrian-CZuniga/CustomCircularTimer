@@ -6,7 +6,6 @@ import android.graphics.Path
 import android.graphics.PathMeasure
 import android.graphics.RectF
 import android.util.AttributeSet
-import java.util.concurrent.TimeUnit
 import kotlin.math.atan2
 
 class ProgressRoundedRectTimerView @JvmOverloads constructor(
@@ -19,8 +18,6 @@ class ProgressRoundedRectTimerView @JvmOverloads constructor(
 
     override var minValue: Long = 0L
     override var maxValue: Long = 1000L
-
-
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -56,8 +53,8 @@ class ProgressRoundedRectTimerView @JvmOverloads constructor(
         val segmentLength = totalLength * progressFraction
 
         val progressPath = Path()
-        var startDistance = offsetDistance
-        var endDistance = offsetDistance + segmentLength
+        val startDistance = offsetDistance
+        val endDistance = offsetDistance + segmentLength
 
         if (endDistance <= totalLength) {
             pathMeasure.getSegment(startDistance, endDistance, progressPath, true)
@@ -72,28 +69,10 @@ class ProgressRoundedRectTimerView @JvmOverloads constructor(
         canvas.drawPath(progressPath, paintProgress)
     }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-
-        val outlinePath = Path().apply {
-            addRoundRect(rectBounds, cornerRadius, cornerRadius, Path.Direction.CW)
-        }
-        val pathMeasure = PathMeasure(outlinePath, false)
-        val totalLength = pathMeasure.length
-
-        val offset = totalLength * (90f / 360f)
-
-        for (marker in markers) {
-            if (marker in minValue..maxValue) {
-
-            }
-        }
-
-        // Dibujar el texto centrado
-        val centerX = width / 2f
-        val centerY = height / 2f - ((paintText.descent() + paintText.ascent()) / 2)
-        canvas.drawText(currentValue.toTimeString(formatText), centerX, centerY, paintText)
+    override fun drawMarkerInShape(canvas: Canvas) {
+        markerVisibility = false
     }
+
 
     fun setCornerRadius(radius: Float) {
         cornerRadius = radius
