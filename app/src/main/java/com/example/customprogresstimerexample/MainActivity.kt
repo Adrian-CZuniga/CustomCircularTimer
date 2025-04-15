@@ -1,7 +1,7 @@
 package com.example.customprogresstimerexample
 
-import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -22,12 +22,7 @@ class MainActivity : AppCompatActivity() {
         val btnIncrease = findViewById<Button>(R.id.btnIncrease)
         val btnDecrease = findViewById<Button>(R.id.btnDecrease)
         customProgress.setRange(0L, TimeUnit.SECONDS.toMillis(120))
-        customProgress.setStrokeWidthTimer(50f)
 
-        customProgress.setProgressColor(Color.argb(255, 255, 0, 0))
-        customProgress.setMarkerColor(Color.argb(255, 0, 255, 0))
-        customProgress.setBackgroundTimerColor(Color.argb(255, 0, 0, 255))
-        customProgress.setMarkerSecondaryColor(Color.argb(255, 255, 255, 0))
         customProgress.attachMarkersByDivider(10)
         customProgress.onValueReachedMarkerListener = object : ProgressTimerView.OnValueReachedMarkerListener {
             override fun onMarkerReached(marker: Long) {
@@ -40,6 +35,14 @@ class MainActivity : AppCompatActivity() {
         customProgressRoundedRect.attachMarkersByDivider(2)
         customProgressRoundedRect.setCornerRadius(20f)
 
+
+        customProgress.setOnClickListener{
+            Log.d("MainActivity", "customProgress clicked")
+        }
+
+        customProgressRoundedRect.setOnClickListener{
+            Log.d("MainActivity", "customProgressRoundedRect clicked")
+        }
         btnIncrease.setOnClickListener {
             customProgress.increase()
             customProgressRoundedRect.increase()

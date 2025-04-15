@@ -13,6 +13,13 @@
         android:layout_height="200dp"
         android:id="@+id/customProgress"
 
+        app:progressColor="#FF0000"
+        app:backgroundTimerColor="#00FF00"
+        app:markerColor="#0000FF"
+        app:markerSecondaryColor="#FFFF00"
+        app:strokeWidth="20dp"
+        app:cornerRadius="30dp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,6 +29,10 @@
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:id="@+id/customProgressRoundedRect"
+
+
+        app:progressColor="#FF0000"
+        app:backgroundTimerColor="#000FFF"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +45,7 @@
         android:id="@+id/btnIncrease"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aumentar"
+        android:text="Increase"
 
         android:backgroundTint="#00FF00"
 
@@ -48,7 +59,7 @@
         android:id="@+id/btnDecrease"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Disminuir"
+        android:text="Decrease"
 
         android:backgroundTint="#FF0000"
 
