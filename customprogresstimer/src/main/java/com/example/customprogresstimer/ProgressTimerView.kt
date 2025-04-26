@@ -85,6 +85,7 @@ abstract class ProgressTimerView@JvmOverloads constructor(
                 paintMarker.color = getColor(R.styleable.ProgressTimerView_markerColor, Color.BLUE)
                 painMarkerSecondary.color = getColor(R.styleable.ProgressTimerView_markerSecondaryColor, Color.YELLOW)
 
+                paintText.color = getColor(R.styleable.ProgressTimerView_timerTextColor, Color.BLACK)
                 paintProgress.strokeWidth = getDimension(R.styleable.ProgressTimerView_strokeWidth, 20f)
                 painMarkerSecondary.strokeWidth = getDimension(R.styleable.ProgressTimerView_strokeWidth, 20f)
                 paintMarker.strokeWidth = getDimension(R.styleable.ProgressTimerView_strokeWidth, 20f)
