@@ -14,10 +14,6 @@ class ProgressRoundedRectTimerView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ProgressTimerView(context, attrs, defStyleAttr) {
     private val rectBounds = RectF()
-    private var cornerRadius = 30f
-
-    override var minValue: Long = 0L
-    override var maxValue: Long = 1000L
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -25,8 +21,8 @@ class ProgressRoundedRectTimerView @JvmOverloads constructor(
         rectBounds.set(padding, padding, w - padding, h - padding)
     }
 
-    override fun drawShape(canvas: Canvas) {
-        canvas.drawRoundRect(rectBounds, cornerRadius, cornerRadius, paintBackground)
+    override fun drawProgressBar(canvas: Canvas) {
+        canvas.drawRoundRect(rectBounds, cornerRadius, cornerRadius, paintProgressBackground)
 
         val outlinePath = Path().apply {
             addRoundRect(rectBounds, cornerRadius, cornerRadius, Path.Direction.CW)
@@ -74,8 +70,4 @@ class ProgressRoundedRectTimerView @JvmOverloads constructor(
     }
 
 
-    fun setCornerRadius(radius: Float) {
-        cornerRadius = radius
-        invalidate()
-    }
 }

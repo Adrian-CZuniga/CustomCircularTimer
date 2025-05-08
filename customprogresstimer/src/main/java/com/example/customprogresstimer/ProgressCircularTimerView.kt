@@ -12,20 +12,16 @@ class ProgressCircularTimerView @JvmOverloads constructor(
 ) : ProgressTimerView(context, attrs, defStyleAttr) {
     private val tag = ProgressCircularTimerView::class.java.simpleName
 
-    override var minValue: Long = 0L
-    override var maxValue: Long = 10000L
-
-
     private val arcBounds = RectF()
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        val padding = paintBackground.strokeWidth / 2
+        val padding = paintProgressBackground.strokeWidth / 2
         arcBounds.set(padding, padding, w - padding, h - padding)
     }
 
-    override fun drawShape(canvas: Canvas) {
-        canvas.drawArc(arcBounds, 0f, 360f, false, paintBackground)
+    override fun drawProgressBar(canvas: Canvas) {
+        canvas.drawArc(arcBounds, 0f, 360f, false, paintProgressBackground)
         val sweepAngle = ((currentValue - minValue).toFloat() / (maxValue - minValue)) * 360f
         canvas.drawArc(arcBounds, -90f, sweepAngle, false, paintProgress)
     }

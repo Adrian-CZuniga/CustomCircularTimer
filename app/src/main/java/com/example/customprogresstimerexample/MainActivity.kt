@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.customprogresstimer.ProgressTimerView
 import com.example.customcirculartimerexample.R
 import com.example.customprogresstimer.ProgressRoundedRectTimerView
+import com.example.customprogresstimer.TextTimerView
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val customProgress = findViewById<ProgressTimerView>(R.id.customProgress)
         val customProgressRoundedRect = findViewById<ProgressRoundedRectTimerView>(R.id.customProgressRoundedRect)
+        val customTextTimerView = findViewById<TextTimerView>(R.id.textViewTimer)
 
         val btnIncrease = findViewById<Button>(R.id.btnIncrease)
         val btnDecrease = findViewById<Button>(R.id.btnDecrease)
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         customProgressRoundedRect.setRange(0L, TimeUnit.SECONDS.toMillis(120))
         customProgressRoundedRect.setStrokeWidthTimer(30f)
         customProgressRoundedRect.attachMarkersByDivider(2)
-        customProgressRoundedRect.setCornerRadius(20f)
+        customProgressRoundedRect.cornerRadius = 200f
 
 
         customProgress.setOnClickListener{
@@ -46,11 +48,14 @@ class MainActivity : AppCompatActivity() {
         btnIncrease.setOnClickListener {
             customProgress.increase()
             customProgressRoundedRect.increase()
+            customTextTimerView.increase()
+
         }
 
         btnDecrease.setOnClickListener {
             customProgress.decrease()
             customProgressRoundedRect.decrease()
+            customTextTimerView.decrease()
         }
     }
 }
